@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Fábrica do Açaí - Peça Agora</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    header {
+      background-color: #800080;
+      color: white;
+      padding: 20px;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .container {
+      padding: 20px;
+    }
+
+    .product {
+      background-color: white;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .product img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-size: 1.3em;
+      color: #800080;
+      margin-bottom: 10px;
+    }
+
+    .obs {
+      font-size: 0.9em;
+      color: #555;
+      margin-top: 5px;
+    }
+
+    .form-box {
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-top: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    select, input {
+      padding: 10px;
+      width: 90%;
+      margin-top: 10px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #25d366;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 1em;
+      margin-top: 20px;
+    }
+
+    .total {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #800080;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="acai-logo.jpg" alt="Logo do Açaí" style="max-width: 150px; margin-top: 10px;">
+    <h1>Fábrica do Açaí</h1>
+    <p>Peça seu açaí artesanal pelo WhatsApp</p>
+  </header>
+
+  <div class="container">
+    <div class="product">
+      <img src="acai-1l.jpg" alt="Açaí 1 Litro">
+      <h2>Açaí 1 Litro</h2>
+      <div class="price">R$ 25,00</div>
+    </div>
+
+    <div class="product">
+      <img src="acai-10l.jpg" alt="Açaí 10 Litros">
+      <h2>Açaí 10 Litros</h2>
+      <div class="price">R$ 115,00</div>
+      <p class="obs">A partir de 5 caixas: R$ 105,00 cada</p>
+    </div>
+
+    <div class="form-box">
+      <h2>Monte seu pedido</h2>
+      <select id="produto">
+        <option value="1l">Açaí 1 Litro</option>
+        <option value="10l">Açaí 10 Litros</option>
+      </select>
+      <input type="number" id="quantidade" placeholder="Quantidade" min="1">
+      <div class="total" id="total">Total: R$ 0,00</div>
+      <a id="whatsapp-link" class="btn" href="#" target="_blank">Enviar pedido</a>
+    </div>
+  </div>
+
+  <script>
+    const produto = document.getElementById('produto');
+    const quantidade = document.getElementById('quantidade');
+    const total = document.getElementById('total');
+    const link = document.getElementById('whatsapp-link');
+
+    function atualizar() {
+      const tipo = produto.value;
+      const qtd = parseInt(quantidade.value) || 0;
+      let preco = 0;
+
+      if (tipo === '1l') {
+        preco = 25;
+      } else if (tipo === '10l') {
+        preco = qtd >= 5 ? 105 : 115;
+      }
+
+      const totalFinal = preco * qtd;
+      total.textContent = `Total: R$ ${totalFinal.toFixed(2)}`;
+
+      const texto = encodeURIComponent(`Olá! Gostaria de pedir ${qtd} unidade(s) de açaí ${tipo.toUpperCase()}.
+Valor total: R$ ${totalFinal.toFixed(2)}`);
+      link.href = `https://wa.me/5522999957625?text=${texto}`;
+    }
+
+    produto.addEventListener('change', atualizar);
+    quantidade.addEventListener('input', atualizar);
+  </script>
+</body>
+</html>
