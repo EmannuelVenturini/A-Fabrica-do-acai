@@ -4,61 +4,46 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Fábrica do Açaí - Peça Agora</title>
- 
+
   <style>
+    body {
+      background-image: url('decoracao-tropical II.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
 
+    header {
+      color: #4d2d1c;
+      padding: 10px 20px;
+      text-align: center;
+    }
 
-      body {
-  background-image: url('decoracao-tropical II.png'); 
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover; 
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  text-align: center;
+    header img {
+      max-width: 120px;
+      margin-bottom: -10px;
+      margin-top: -5px;
+    }
 
-.produto {
-  margin-bottom: 20px;
-}
+    h1 {
+      margin: 0;
+      margin-top: 0px;
+      font-size: 2rem;
+    }
 
-.promocao {
-  color: #c12060;
-  font-weight: bold;
-  margin-top: -10px;
-}
+    p {
+      margin: 0;
+      margin-top: 4px;
+      font-size: 1.1rem;
+    }
 
-  
-header {
-  color: #4d2d1c; 
-  padding: 10px 20px;
-  text-align: center;
-}
-
-header img {
-  max-width: 120px;
-  margin-bottom: -10px; 
-  margin-top: -5px;    
-}
-
-h1 {
-  margin: 0;
-  margin-top: 0px;
-  font-size: 2rem;
-}
-
-p {
-  margin: 0;
-  margin-top: 4px;
-  font-size: 1.1rem;
-}
-
-}
-
-.container {
-  padding: 20px;
-}
-
+    .container {
+      padding: 20px;
+    }
 
     .product {
       background-color: white;
@@ -78,10 +63,10 @@ p {
     .price {
       font-size: 1.3em;
       color: #800080;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
-    .obs {
+    .obs, .obs-dinamica {
       font-size: 0.9em;
       color: #555;
       margin-top: 5px;
@@ -133,18 +118,11 @@ p {
   </header>
 
   <div class="container">
-    <div class="produto">
-  <label for="qtd1litro"><strong>Açaí 1 litro</strong>:</label>
-  <select id="qtd1litro" onchange="atualizarPreco()">
-    <option value="1">1 unidade</option>
-    <option value="2">2 unidades</option>
-    <option value="3">3 unidades</option>
-    <option value="4">4 unidades</option>
-  </select>
-  <p id="preco1litro">Preço: R$ 25,00 cada</p>
-  <p class="promocao">Promoção: A partir de 2 unidades, sai por R$ 20,00 cada!</p>
-</div>
-
+    <div class="product">
+      <h2>Açaí 1 Litro</h2>
+      <div class="price">R$ 25,00</div>
+      <p class="obs-dinamica"></p>
+    </div>
 
     <div class="product">
       <h2>Açaí 10 Litros</h2>
@@ -174,39 +152,31 @@ p {
       const tipo = produto.value;
       const qtd = parseInt(quantidade.value) || 0;
       let preco = 0;
+      let promoMsg = "";
 
       if (tipo === '1l') {
-        preco = 25;
+        preco = qtd >= 2 ? 20 : 25;
+        promoMsg = "Promoção: A partir de 2 unidades, sai por R$ 20,00 cada!";
       } else if (tipo === '10l') {
         preco = qtd >= 5 ? 105 : 115;
+        promoMsg = "A partir de 5 caixas: R$ 105,00 cada";
       }
 
       const totalFinal = preco * qtd;
       total.textContent = `Total: R$ ${totalFinal.toFixed(2)}`;
 
-      const texto = encodeURIComponent(`Olá! Gostaria de pedir ${qtd} unidade(s) de açaí ${tipo.toUpperCase()}.
-Valor total: R$ ${totalFinal.toFixed(2)}`);
+      const texto = encodeURIComponent(`Olá! Gostaria de pedir ${qtd} unidade(s) de açaí ${tipo.toUpperCase()}.\nValor total: R$ ${totalFinal.toFixed(2)}`);
       link.href = `https://wa.me/5522999957625?text=${texto}`;
+
+      // Atualiza texto da promoção abaixo do produto
+      const obs = document.querySelector('.obs-dinamica');
+      if (obs) {
+        obs.textContent = promoMsg;
+      }
     }
 
     produto.addEventListener('change', atualizar);
     quantidade.addEventListener('input', atualizar);
-
-    <script>
-  function atualizarPreco() {
-    const select = document.getElementById('qtd1litro');
-    const preco = document.getElementById('preco1litro');
-    const qtd = parseInt(select.value);
-
-    if (qtd >= 2) {
-      preco.textContent = `Preço: R$ 20,00 cada`;
-    } else {
-      preco.textContent = `Preço: R$ 25,00 cada`;
-    }
-  }
-</script>
-
-    
   </script>
 </body>
 </html>
