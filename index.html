@@ -143,39 +143,45 @@
   </div>
 
   <script>
-    const produto = document.getElementById('produto');
-    const quantidade = document.getElementById('quantidade');
-    const total = document.getElementById('total');
-    const link = document.getElementById('whatsapp-link');
-    const cupom = document.getElementById('cupom');
+  const produto = document.getElementById('produto');
+  const quantidade = document.getElementById('quantidade');
+  const cupom = document.getElementById('cupom');
+  const total = document.getElementById('total');
+  const link = document.getElementById('whatsapp-link');
 
-    function atualizar() {
-      const tipo = produto.value;
-      const qtd = parseInt(quantidade.value) || 0;
-      const codigo = cupom.value.trim().toUpperCase();
-      let preco = 0;
+  function atualizar() {
+    const tipo = produto.value;
+    const qtd = parseInt(quantidade.value) || 0;
+    const codigocupom = (cupom.value || '').toLowerCase().trim();
+    let preco = 0;
 
-      if (tipo === '1l') {
-        if ((codigo === 'COZENDEY') && qtd >= 2) {
-          preco = 20;
-        } else {
-          preco = 25;
-        }
-      } else if (tipo === '10l') {
+    if (tipo === '1l') {
+      if (codigocupom === 'cozendey' && qtd >= 2) {
+        preco = 20;
+      } else {
+        preco = 25;
+      }
+    } else if (tipo === '10l') {
+      if (codigocupom === 'praca' || codigocupom === 'praça') {
+        preco = 100;
+      } else {
         preco = qtd >= 5 ? 105 : 115;
       }
-
-      const totalFinal = preco * qtd;
-      total.textContent = `Total: R$ ${totalFinal.toFixed(2)}`;
-
-      const texto = encodeURIComponent(`Olá! Gostaria de pedir ${qtd} unidade(s) de açaí ${tipo.toUpperCase()}.
-Valor total: R$ ${totalFinal.toFixed(2)}`);
-      link.href = `https://wa.me/5522999957625?text=${texto}`;
     }
 
-    produto.addEventListener('change', atualizar);
-    quantidade.addEventListener('input', atualizar);
-    cupom.addEventListener('input', atualizar);
-  </script>
+    const totalFinal = preco * qtd;
+    total.textContent = `Total: R$ ${totalFinal.toFixed(2)}`;
+
+    const texto = encodeURIComponent(`Olá! Gostaria de pedir ${qtd} unidade(s) de açaí ${tipo.toUpperCase()}.
+Cupom: ${codigocupom || 'nenhum'}
+Valor total: R$ ${totalFinal.toFixed(2)}`);
+    link.href = `https://wa.me/5522999957625?text=${texto}`;
+  }
+
+  produto.addEventListener('change', atualizar);
+  quantidade.addEventListener('input', atualizar);
+  cupom.addEventListener('input', atualizar);
+</script>
+
 </body>
 </html>
