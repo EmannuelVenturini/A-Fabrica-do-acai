@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Açaí Atlântico - Peça Agora</title>
+  <title>Açaí Atlântico - Faça seu Pedido</title>
 
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
     body {
-      /* Lembre de subir a imagem 'fundo-praia.jpg' ou apague a linha abaixo */
-      background-image: url('fundo-praia.jpg'); 
+      background-image: url('decoracao-tropical II.png'); 
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover; 
-      background-color: #f4f4f4;
+      background-attachment: fixed;
       font-family: 'Poppins', sans-serif;
       margin: 0;
       padding: 0;
@@ -24,91 +23,119 @@
     header {
       background-color: rgba(255, 255, 255, 0.95);
       color: #4d2d1c; 
-      padding: 20px;
-      text-align: center;
+      padding: 15px;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
+      margin-bottom: 20px;
     }
 
     header img {
-      max-width: 160px;
-      border-radius: 50%;
+      max-width: 140px;
       margin-bottom: 5px; 
     }
 
-    h1 {
-      margin: 0;
-      font-size: 2rem;
-      color: #6a0dad; /* Roxo Açaí */
-    }
-
-    p {
-      margin: 5px 0 0 0;
-      font-size: 1rem;
-      color: #555;
-    }
+    h1 { margin: 0; font-size: 1.8rem; color: #6a0dad; }
+    p { margin: 5px 0 0 0; font-size: 1rem; color: #555; }
 
     .container {
-      padding: 20px;
-      max-width: 600px; /* Limita a largura em telas grandes */
+      padding: 10px 20px 40px 20px;
+      max-width: 600px;
       margin: 0 auto;
     }
 
-    /* Estilo do Menu de Preços */
-    .menu-card {
-      background-color: white;
-      margin: 15px auto;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      text-align: left;
-    }
-
-    .menu-item {
-      display: flex;
-      justify-content: space-between;
-      border-bottom: 1px dashed #ccc;
-      padding: 10px 0;
-      font-size: 1.1em;
-      color: #333;
-    }
-
-    .menu-item:last-child {
-      border-bottom: none;
-    }
-
-    .menu-price {
-      font-weight: bold;
-      color: #6a0dad;
-    }
-
-    /* Estilo do Formulário */
-    .form-box {
+    .box {
       background-color: #fff;
       border-radius: 15px;
-      padding: 25px;
-      margin-top: 20px;
+      padding: 20px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       border: 2px solid #6a0dad;
+      margin-bottom: 20px;
+      text-align: left; /* Alinha tudo à esquerda dentro da caixa */
     }
 
-    select, input, textarea {
+    h2 { 
+      color: #6a0dad; 
+      margin-top: 0; 
+      text-align: center; 
+    }
+
+    label.section-title {
+      display: block;
+      font-weight: bold;
+      margin-top: 15px;
+      margin-bottom: 8px;
+      color: #333;
+      font-size: 1.1em;
+      border-bottom: 2px solid #eee;
+      padding-bottom: 5px;
+    }
+
+    /* Select de Tamanho */
+    select {
       padding: 12px;
       width: 100%;
       box-sizing: border-box;
-      margin-top: 15px;
       font-size: 1em;
       border: 1px solid #ccc;
       border-radius: 8px;
       background-color: #f9f9f9;
-      font-family: 'Poppins', sans-serif;
+      margin-bottom: 10px;
     }
 
-    .btn {
-      display: block;
+    /* Estilo das Opções (Checkboxes) */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* Duas colunas */
+      gap: 10px;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      background: #f9f9f9;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #eee;
+    }
+
+    .option-item input {
+      margin-right: 10px;
+      transform: scale(1.3); /* Aumenta a bolinha */
+      accent-color: #6a0dad; /* Cor roxa ao marcar */
+    }
+
+    /* Inputs de texto (Nome, Cupom) */
+    input[type="text"] {
+      padding: 12px;
       width: 100%;
       box-sizing: border-box;
+      margin-top: 5px;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    /* Botões */
+    .btn-add {
+      display: block;
+      width: 100%;
+      background-color: #6a0dad;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1em;
+      font-weight: bold;
+      margin-top: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .btn-add:hover { background-color: #500a85; }
+
+    .btn-zap {
+      display: block;
+      width: 100%;
       background-color: #25d366;
       color: white;
       padding: 15px;
@@ -116,21 +143,44 @@
       text-decoration: none;
       font-size: 1.2em;
       font-weight: bold;
-      margin-top: 25px;
-      box-shadow: 0 4px 6px rgba(37, 211, 102, 0.3);
-      transition: background-color 0.3s;
+      margin-top: 10px;
+      text-align: center;
+      border: none;
+      cursor: pointer;
     }
 
-    .btn:hover {
-      background-color: #1ebc57;
+    /* Carrinho */
+    .cart-item {
+      background-color: #f1f1f1;
+      border-left: 5px solid #6a0dad;
+      padding: 10px;
+      margin-bottom: 10px;
+      position: relative;
+      border-radius: 4px;
+    }
+    .cart-item h4 { margin: 0; color: #333; }
+    .cart-item ul { margin: 5px 0 0 20px; padding: 0; color: #666; font-size: 0.9em; }
+    
+    .remove-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ff4d4d;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 25px;
+      height: 25px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
-    .total {
-      margin-top: 20px;
+    .total-display {
       font-size: 1.4em;
       font-weight: bold;
       color: #333;
-      padding: 15px;
+      margin: 20px 0;
+      padding: 10px;
       background-color: #eee;
       border-radius: 8px;
       text-align: center;
@@ -138,108 +188,189 @@
   </style>
 </head>
 <body>
+
   <header>
     <img src="IMG_20260108_152910_605.jpg" alt="Logo Açaí Atlântico">
     <h1>Açaí Atlântico</h1>
-    <p>Açaí Artesanal de verdade</p>
+    <p>Açaì Artesanal de verdade!</p>
   </header>
 
   <div class="container">
-    
-    <div class="menu-card">
-      <h3 style="text-align: center; color: #6a0dad; margin-top: 0;">Nossos Tamanhos</h3>
-      <div class="menu-item">
-        <span>Copo 330ml</span>
-        <span class="menu-price">R$ 13,00</span>
-      </div>
-      <div class="menu-item">
-        <span>Copo 550ml</span>
-        <span class="menu-price">R$ 16,00</span>
-      </div>
-      <div class="menu-item">
-        <span>Copo 770ml</span>
-        <span class="menu-price">R$ 20,00</span>
-      </div>
-    </div>
 
-    <div class="form-box">
-      <h2 style="color: #6a0dad; margin-top: 0;">Faça seu pedido</h2>
+    <div class="box">
+      <h2>Montar Açaí</h2>
       
-      <label style="display:block; text-align:left; font-weight:bold; margin-top:10px;">Tamanho:</label>
-      <select id="produto">
-        <option value="330ml">330ml - R$ 13,00</option>
-        <option value="550ml">550ml - R$ 16,00</option>
-        <option value="770ml">770ml - R$ 20,00</option>
+      <label class="section-title">1. Tamanho:</label>
+      <select id="select-tamanho">
+        <option value="330ml" data-preco="13.00">Copo 330ml - R$ 13,00</option>
+        <option value="550ml" data-preco="16.00">Copo 550ml - R$ 16,00</option>
+        <option value="770ml" data-preco="20.00">Copo 770ml - R$ 20,00</option>
       </select>
       
-      <input type="number" id="quantidade" placeholder="Quantidade" min="1" value="1">
-      
-      <textarea id="complementos" rows="3" placeholder="Quais complementos? (Ex: Leite em pó, granola, morango...)"></textarea>
+      <label class="section-title">2. Complementos:</label>
+      <div class="options-grid" id="grid-complementos">
+        <label class="option-item"><input type="checkbox" value="Leite em Pó"> Leite em Pó</label>
+        <label class="option-item"><input type="checkbox" value="Paçoca"> Paçoca</label>
+        <label class="option-item"><input type="checkbox" value="Amendoim"> Amendoim</label>
+        <label class="option-item"><input type="checkbox" value="Granola"> Granola</label>
+        <label class="option-item"><input type="checkbox" value="Granulado"> Granulado</label>
+      </div>
 
-      <input type="text" id="cupom" placeholder="Cupom de desconto (opcional)">
+      <label class="section-title">3. Coberturas:</label>
+      <div class="options-grid" id="grid-coberturas">
+        <label class="option-item"><input type="checkbox" value="Morango"> Morango</label>
+        <label class="option-item"><input type="checkbox" value="Chocolate"> Chocolate</label>
+        <label class="option-item"><input type="checkbox" value="Menta"> Menta</label>
+        <label class="option-item"><input type="checkbox" value="Leite Cond."> Leite Cond.</label>
+      </div>
       
-      <div class="total" id="total">Total: R$ 13,00</div>
-      
-      <a id="whatsapp-link" class="btn" href="#" target="_blank">
-        Enviar Pedido no Zap
-      </a>
+      <button class="btn-add" onclick="adicionarAoCarrinho()">+ Adicionar ao Pedido</button>
     </div>
+
+    <div class="box" id="area-carrinho">
+      <h2>Seu Pedido</h2>
+      <div id="lista-itens">
+        <p style="color: #999; text-align: center;">Seu carrinho está vazio.</p>
+      </div>
+
+      <label class="section-title">Seus Dados:</label>
+      <input type="text" id="nome-cliente" placeholder="Digite seu nome">
+      <input type="text" id="input-cupom" placeholder="Cupom de desconto (opcional)">
+
+      <div class="total-display" id="display-total">Total: R$ 0,00</div>
+      
+      <button class="btn-zap" onclick="finalizarPedido()">
+        Enviar Pedido no Zap
+      </button>
+    </div>
+
   </div>
 
   <script>
-  const produto = document.getElementById('produto');
-  const quantidade = document.getElementById('quantidade');
-  const complementos = document.getElementById('complementos');
-  const cupom = document.getElementById('cupom');
-  const total = document.getElementById('total');
-  const link = document.getElementById('whatsapp-link');
+    let carrinho = [];
+    const telefoneWhatsapp = "5522999957625"; 
 
-  // SEU NÚMERO DE WHATSAPP AQUI (Mantenha o formato 55 + DDD + Numero)
-  const telefoneWhatsapp = "5522999957625"; 
-
-  function atualizar() {
-    const tipo = produto.value;
-    const qtd = parseInt(quantidade.value) || 0;
-    const obs = complementos.value;
-    const codigocupom = (cupom.value || '').toLowerCase().trim();
-    let preco = 0;
-
-    // Definição de Preços
-    if (tipo === '330ml') {
-        preco = 13.00;
-    } else if (tipo === '550ml') {
-        preco = 16.00;
-    } else if (tipo === '770ml') {
-        preco = 20.00;
+    function pegarSelecionados(idContainer) {
+      const container = document.getElementById(idContainer);
+      const checkboxes = container.querySelectorAll('input[type="checkbox"]:checked');
+      let valores = [];
+      checkboxes.forEach((checkbox) => {
+        valores.push(checkbox.value);
+      });
+      return valores;
     }
 
-    // Cálculo do Total
-    const totalFinal = preco * qtd;
-    
-    // Atualiza o texto do valor total na tela
-    total.textContent = `Total: ${totalFinal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+    function limparSelecoes() {
+      const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+      checkboxes.forEach(cb => cb.checked = false);
+    }
 
-    // Monta a mensagem para o WhatsApp
-    const quebraLinha = "%0a"; 
-    const mensagem = `Olá! Gostaria de fazer um pedido no *Açaí Atlântico*:${quebraLinha}${quebraLinha}` +
-                     `🥤 *Tamanho:* ${tipo}${quebraLinha}` +
-                     `🔢 *Quantidade:* ${qtd}${quebraLinha}` +
-                     `📝 *Complementos:* ${obs || 'Sem complementos'}${quebraLinha}` +
-                     `🎫 *Cupom:* ${codigocupom || 'nenhum'}${quebraLinha}` +
-                     `💰 *Valor Total:* R$ ${totalFinal.toFixed(2)}`;
-                     
-    link.href = `https://wa.me/${telefoneWhatsapp}?text=${mensagem}`;
-  }
+    function adicionarAoCarrinho() {
+      const select = document.getElementById('select-tamanho');
+      const tamanhoTexto = select.options[select.selectedIndex].text;
+      const preco = parseFloat(select.options[select.selectedIndex].getAttribute('data-preco'));
+      
+      // Pega os itens marcados
+      const complementos = pegarSelecionados('grid-complementos');
+      const coberturas = pegarSelecionados('grid-coberturas');
 
-  // Monitora as mudanças nos campos para atualizar o preço em tempo real
-  produto.addEventListener('change', atualizar);
-  quantidade.addEventListener('input', atualizar);
-  complementos.addEventListener('input', atualizar);
-  cupom.addEventListener('input', atualizar);
-  
-  // Roda uma vez ao carregar a página
-  atualizar();
-</script>
+      const item = {
+        id: Date.now(),
+        tamanho: tamanhoTexto,
+        complementos: complementos,
+        coberturas: coberturas,
+        preco: preco
+      };
+
+      carrinho.push(item);
+      limparSelecoes(); // Limpa os checkbox para o próximo pedido
+      renderizarCarrinho();
+    }
+
+    function removerItem(id) {
+      carrinho = carrinho.filter(item => item.id !== id);
+      renderizarCarrinho();
+    }
+
+    function renderizarCarrinho() {
+      const lista = document.getElementById('lista-itens');
+      const displayTotal = document.getElementById('display-total');
+      
+      lista.innerHTML = ''; 
+
+      if (carrinho.length === 0) {
+        lista.innerHTML = '<p style="color: #999; text-align: center;">Seu carrinho está vazio.</p>';
+        displayTotal.innerText = 'Total: R$ 0,00';
+        return;
+      }
+
+      let total = 0;
+
+      carrinho.forEach(item => {
+        total += item.preco;
+        
+        // Monta a lista visual de itens extras
+        let extrasHtml = '';
+        if (item.complementos.length > 0) extrasHtml += `<li>+ ${item.complementos.join(', ')}</li>`;
+        if (item.coberturas.length > 0) extrasHtml += `<li>+ Cob: ${item.coberturas.join(', ')}</li>`;
+        if (extrasHtml === '') extrasHtml = '<li>Sem adicionais</li>';
+
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML = `
+          <button class="remove-btn" onclick="removerItem(${item.id})">X</button>
+          <h4>${item.tamanho}</h4>
+          <ul>${extrasHtml}</ul>
+        `;
+        lista.appendChild(div);
+      });
+
+      displayTotal.innerText = `Total: ${total.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+    }
+
+    function finalizarPedido() {
+      if (carrinho.length === 0) {
+        alert("Adicione pelo menos um açaí ao carrinho!");
+        return;
+      }
+
+      const nome = document.getElementById('nome-cliente').value.trim();
+      if (!nome) {
+        alert("Por favor, digite seu nome.");
+        document.getElementById('nome-cliente').focus();
+        return;
+      }
+
+      const cupom = document.getElementById('input-cupom').value.trim();
+      let totalGeral = 0;
+      let msgItens = "";
+
+      carrinho.forEach((item, index) => {
+        totalGeral += item.preco;
+        msgItens += `------------------------------%0a`;
+        msgItens += `*Item ${index + 1}:* ${item.tamanho}%0a`;
+        
+        if (item.complementos.length > 0) {
+            msgItens += `🥣 *Complem:* ${item.complementos.join(', ')}%0a`;
+        }
+        if (item.coberturas.length > 0) {
+            msgItens += `🍫 *Cobertura:* ${item.coberturas.join(', ')}%0a`;
+        }
+        if (item.complementos.length === 0 && item.coberturas.length === 0) {
+            msgItens += `⚪ *Sem adicionais*%0a`;
+        }
+      });
+
+      const quebra = "%0a";
+      const textoFinal = `Olá! Sou *${nome}* e gostaria de pedir no *Açaí Atlântico*:${quebra}${quebra}` +
+                         `${msgItens}` +
+                         `------------------------------${quebra}` +
+                         `🎫 *Cupom:* ${cupom || 'Nenhum'}${quebra}` +
+                         `💰 *TOTAL:* ${totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+
+      window.open(`https://wa.me/${telefoneWhatsapp}?text=${textoFinal}`, '_blank');
+    }
+  </script>
 
 </body>
 </html>
