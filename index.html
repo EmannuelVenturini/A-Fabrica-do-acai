@@ -9,6 +9,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 
     body {
+      /* Fundo tropical */
       background-image: url('decoracao-tropical II.png'); 
       background-repeat: no-repeat;
       background-position: center;
@@ -20,23 +21,36 @@
       text-align: center;
     }
 
+    /* --- CABEÇALHO PRETO (CAMUFLAGEM DA LOGO) --- */
     header {
-      background-color: rgba(255, 255, 255, 0.95);
-      color: #4d2d1c; 
-      padding: 15px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      background-color: #000000; /* Preto */
+      color: #ffffff; /* Texto branco */
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
       border-bottom-left-radius: 20px;
       border-bottom-right-radius: 20px;
       margin-bottom: 20px;
+      border-bottom: 3px solid #6a0dad; 
     }
 
     header img {
-      max-width: 140px;
-      margin-bottom: 5px; 
+      max-width: 150px;
+      margin-bottom: 5px;
+      border-radius: 50%;
     }
 
-    h1 { margin: 0; font-size: 1.8rem; color: #6a0dad; }
-    p { margin: 5px 0 0 0; font-size: 1rem; color: #555; }
+    h1 { 
+      margin: 0; 
+      font-size: 1.8rem; 
+      color: #bf80ff; /* Roxo claro */
+    }
+
+    p { 
+      margin: 5px 0 0 0; 
+      font-size: 1rem; 
+      color: #cccccc; 
+    }
+    /* ----------------------------------------- */
 
     .container {
       padding: 10px 20px 40px 20px;
@@ -51,7 +65,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       border: 2px solid #6a0dad;
       margin-bottom: 20px;
-      text-align: left; /* Alinha tudo à esquerda dentro da caixa */
+      text-align: left;
     }
 
     h2 { 
@@ -71,7 +85,6 @@
       padding-bottom: 5px;
     }
 
-    /* Select de Tamanho */
     select {
       padding: 12px;
       width: 100%;
@@ -83,10 +96,9 @@
       margin-bottom: 10px;
     }
 
-    /* Estilo das Opções (Checkboxes) */
     .options-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr; /* Duas colunas */
+      grid-template-columns: 1fr 1fr;
       gap: 10px;
     }
 
@@ -101,11 +113,10 @@
 
     .option-item input {
       margin-right: 10px;
-      transform: scale(1.3); /* Aumenta a bolinha */
-      accent-color: #6a0dad; /* Cor roxa ao marcar */
+      transform: scale(1.3);
+      accent-color: #6a0dad;
     }
 
-    /* Inputs de texto (Nome, Cupom) */
     input[type="text"] {
       padding: 12px;
       width: 100%;
@@ -116,7 +127,6 @@
       border-radius: 8px;
     }
 
-    /* Botões */
     .btn-add {
       display: block;
       width: 100%;
@@ -149,7 +159,6 @@
       cursor: pointer;
     }
 
-    /* Carrinho */
     .cart-item {
       background-color: #f1f1f1;
       border-left: 5px solid #6a0dad;
@@ -192,7 +201,7 @@
   <header>
     <img src="IMG_20260108_160725_617.jpg" alt="Logo Açaí Atlântico">
     <h1>Açaí Atlântico</h1>
-    <p>Açaí Artesanal de verdade!</p>
+    <p>O melhor sabor de Macaé!</p>
   </header>
 
   <div class="container">
@@ -235,6 +244,7 @@
 
       <label class="section-title">Seus Dados:</label>
       <input type="text" id="nome-cliente" placeholder="Digite seu nome">
+      <input type="text" id="input-cupom" placeholder="Cupom de desconto (opcional)">
 
       <div class="total-display" id="display-total">Total: R$ 0,00</div>
       
@@ -247,6 +257,8 @@
 
   <script>
     let carrinho = [];
+    
+    // NÚMERO JÁ CONFIGURADO
     const telefoneWhatsapp = "5522999957625"; 
 
     function pegarSelecionados(idContainer) {
@@ -269,7 +281,6 @@
       const tamanhoTexto = select.options[select.selectedIndex].text;
       const preco = parseFloat(select.options[select.selectedIndex].getAttribute('data-preco'));
       
-      // Pega os itens marcados
       const complementos = pegarSelecionados('grid-complementos');
       const coberturas = pegarSelecionados('grid-coberturas');
 
@@ -282,8 +293,9 @@
       };
 
       carrinho.push(item);
-      limparSelecoes(); // Limpa os checkbox para o próximo pedido
+      limparSelecoes(); 
       renderizarCarrinho();
+      alert("Item adicionado ao carrinho!");
     }
 
     function removerItem(id) {
@@ -308,7 +320,6 @@
       carrinho.forEach(item => {
         total += item.preco;
         
-        // Monta a lista visual de itens extras
         let extrasHtml = '';
         if (item.complementos.length > 0) extrasHtml += `<li>+ ${item.complementos.join(', ')}</li>`;
         if (item.coberturas.length > 0) extrasHtml += `<li>+ Cob: ${item.coberturas.join(', ')}</li>`;
@@ -329,45 +340,46 @@
 
     function finalizarPedido() {
       if (carrinho.length === 0) {
-        alert("Adicione pelo menos um açaí ao carrinho!");
+        alert("Opa! Seu carrinho está vazio. Adicione um açaí primeiro.");
         return;
       }
 
       const nome = document.getElementById('nome-cliente').value.trim();
       if (!nome) {
-        alert("Por favor, digite seu nome.");
+        alert("Por favor, digite seu nome para sabermos quem é.");
         document.getElementById('nome-cliente').focus();
         return;
       }
 
       const cupom = document.getElementById('input-cupom').value.trim();
       let totalGeral = 0;
-      let msgItens = "";
+      
+      // Cria a mensagem bonitinha
+      let mensagem = `Olá! Sou *${nome}* e gostaria de pedir no *Açaí Atlântico*:\n\n`;
 
       carrinho.forEach((item, index) => {
         totalGeral += item.preco;
-        msgItens += `------------------------------%0a`;
-        msgItens += `*Item ${index + 1}:* ${item.tamanho}%0a`;
+        mensagem += `------------------------------\n`;
+        mensagem += `*Item ${index + 1}:* ${item.tamanho}\n`;
         
         if (item.complementos.length > 0) {
-            msgItens += `🥣 *Complem:* ${item.complementos.join(', ')}%0a`;
+            mensagem += `🥣 *Complem:* ${item.complementos.join(', ')}\n`;
         }
         if (item.coberturas.length > 0) {
-            msgItens += `🍫 *Cobertura:* ${item.coberturas.join(', ')}%0a`;
+            mensagem += `🍫 *Cobertura:* ${item.coberturas.join(', ')}\n`;
         }
         if (item.complementos.length === 0 && item.coberturas.length === 0) {
-            msgItens += `⚪ *Sem adicionais*%0a`;
+            mensagem += `⚪ *Sem adicionais*\n`;
         }
       });
 
-      const quebra = "%0a";
-      const textoFinal = `Olá! Sou *${nome}* e gostaria de pedir no *Açaí Atlântico*:${quebra}${quebra}` +
-                         `${msgItens}` +
-                         `------------------------------${quebra}` +
-                         `🎫 *Cupom:* ${cupom || 'Nenhum'}${quebra}` +
-                         `💰 *TOTAL:* ${totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
+      mensagem += `------------------------------\n`;
+      mensagem += `🎫 *Cupom:* ${cupom || 'Nenhum'}\n`;
+      mensagem += `💰 *TOTAL:* ${totalGeral.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}`;
 
-      window.open(`https://wa.me/${telefoneWhatsapp}?text=${textoFinal}`, '_blank');
+      // Prepara o link e abre
+      const textoCodificado = encodeURIComponent(mensagem);
+      window.location.href = `https://wa.me/${telefoneWhatsapp}?text=${textoCodificado}`;
     }
   </script>
 
